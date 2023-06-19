@@ -211,7 +211,7 @@ def salvar():
             }
         )
     print(pd_lista)
-    writer = pd.ExcelWriter(f'{nome_entry.get()}.xlsx', engine="xlsxwriter")
+    writer = pd.ExcelWriter(f'{nome_entry.get()}.xlsx', engine="xlsxwriter", mode='w',if_sheet_exists="replace")
     pd_lista.to_excel(writer, sheet_name="Sheet1", startrow=1, header=False, index=False)
     workbook = writer.book
     worksheet = writer.sheets["Sheet1"]   
