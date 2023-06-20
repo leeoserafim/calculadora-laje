@@ -445,3 +445,6 @@ resultados=Label(frame_resultado, text='',fg='black',justify=LEFT,font=('arial b
 resultados.place(relx=0.01,rely=0.08,relwidth=0.98,relheight=0.9)
 
 janela_principal.mainloop()
+
+
+
