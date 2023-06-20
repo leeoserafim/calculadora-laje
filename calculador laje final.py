@@ -1,12 +1,12 @@
 from tkinter import *
-import math
-import pandas as pd
+from math import *
+from pandas import *
 from  xlsxwriter import *
 import easygui
 import openpyxl
 from pathlib import Path
-
-
+import os
+from numpy import *
 janela_principal= Tk()
 
  #listas com valores e entradas, todas as listas possuem a mesma quantidade de itens
@@ -27,7 +27,7 @@ def vigas_visual():
     quantidade_vg=float(vigas_entry.get())
     
     if (varvg.get() == 1):
-        q_vg=math.floor(quantidade_vg / 0.43)
+        q_vg=floor(quantidade_vg / 0.43)
         quantidade.append(q_vg)#salva esse valor na lista 
     else:
         q_vg=int(quantidade_vg / 0.43)+1
@@ -156,6 +156,7 @@ def apagar_ultimo():
     reforco_dez.pop(apagar[0])
     reforco_doze.pop(apagar[0])
     reforco_dezesseis.pop(apagar[0])
+    reload.pop(apagar[0])
 
 
 def salvar():
@@ -194,11 +195,7 @@ def salvar():
             
             salvar.write(f'{l}\n')
 
-
-    
-    pd_lista=pd.DataFrame(
-            {
-                'quantidade':quantidade,
+    lista={'quantidade':quantidade,
                 'tamanho':tamanho,
                 'metro': metro_linear,
                 '5mm' : reforco_cinco,
@@ -207,26 +204,34 @@ def salvar():
                 '10mm':reforco_dez,
                 '12,5mm' : reforco_doze,
                 '16mm': reforco_dezesseis,
-                'reload': reload,
+                'reload': reload
             }
-        )
-    print(pd_lista)
-    writer = pd.ExcelWriter(f'{nome_entry.get()}.xlsx', engine="xlsxwriter", mode='w',if_sheet_exists="replace")
-    pd_lista.to_excel(writer, sheet_name="Sheet1", startrow=1, header=False, index=False)
-    workbook = writer.book
-    worksheet = writer.sheets["Sheet1"]   
-    (max_row, max_col) = pd_lista.shape     
-    column_settings = [{"header": column} for column in pd_lista.columns]
-    worksheet.add_table(0, 0, max_row, max_col - 1, {"columns": column_settings})
-    worksheet.set_column(0, max_col - 1, 12)
-    writer.close()
-        
     
+    pd_lista=DataFrame.from_dict(lista,orient='index')
+    pd_lista.fillna(0,inplace=True)
+    pd_lista=pd_lista.transpose()
+    
+    pd_lista.to_excel(f'{nome_entry.get()}.xlsx')
+
 def recarregar():
+    quantidade.clear()
+    tamanho.clear()
+    metro_linear.clear()
+    reforco_cinco.clear()
+    reforco_seis.clear()
+    reforco_oito.clear()
+    reforco_dez.clear()
+    reforco_doze.clear()
+    reforco_dezesseis.clear()
+    reload.clear()
+
+    lista_vigas.delete(0,END)
     path= easygui.fileopenbox()
-    pandas=pd.read_excel(f'{path}')
-
-
+    pandas=read_excel(f'{path}')
+    pandas.fillna(0,inplace=True)
+    
+    # print(pandas)
+    
     nome=Path(path).stem
     nome=str(nome)
     nome_entry.delete(0,END) #reseta entry para 0
@@ -259,14 +264,15 @@ def recarregar():
     reforco_dezesseispd=pandas['16mm'].values.tolist()
     for dezesseis in reforco_dezesseispd:
         reforco_dezesseis.append(dezesseis)
+    reloadpd=pandas['reload'].values.tolist()
+    for rel in reloadpd:
+        reload.append(rel)
 
-
-
-    
     reloads=pandas['reload'].values.tolist()
     
     for f in reloads:
         lista_vigas.insert('end',f)
+    
     
 
 #----------------------------------
@@ -313,10 +319,10 @@ bt_save=Button(frame_botao, text='Salvar (Criar arquivo .txt)', fg='black',relie
 bt_save.place(relx=0.72,rely=0.2,relwidth=0.25, relheight=0.6)
         
 bt_adicionar=Button(frame_vigas, text='Adicionar viga',fg='black', relief=RAISED,command=vigas_visual)
-bt_adicionar.place(relx=0.1,rely=0.89,relwidth=0.4, relheight=0.1)
+bt_adicionar.place(relx=0.05,rely=0.89,relwidth=0.4, relheight=0.1)
 
 bt_recarregar=Button(frame_vigas, text='Abrir ".xls"',fg='black', relief=RAISED,command=recarregar)
-bt_recarregar.place(relx=0.4,rely=0.89,relwidth=0.4, relheight=0.1)
+bt_recarregar.place(relx=0.5,rely=0.89,relwidth=0.4, relheight=0.1)
  
 titulo=Label(frame_titulo, text='CALCULADORA DE MATERIAS PARA LAJE PREMOLDADA',fg='black',font=('Helvetica',18))
 titulo.pack(side=TOP)
@@ -437,10 +443,5 @@ resultados_label.place(relx=0.4,rely=0.01)
 
 resultados=Label(frame_resultado, text='',fg='black',justify=LEFT,font=('arial black', 12))
 resultados.place(relx=0.01,rely=0.08,relwidth=0.98,relheight=0.9)
-
-
-
-
-
 
 janela_principal.mainloop()
