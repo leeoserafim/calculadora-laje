@@ -232,6 +232,7 @@ def recarregar():
     
     # print(pandas)
     
+    
     nome=Path(path).stem
     nome=str(nome)
     nome_entry.delete(0,END) #reseta entry para 0
