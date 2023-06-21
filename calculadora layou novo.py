@@ -25,26 +25,38 @@ reforco_doze=[]
 reforco_dezesseis=[]
 reload=[]
 
+
+quantidade_h8=[]
+tamanho_h8=[]
+metro_linear_h8=[]
+reload_h8=[]
+
+quantidade_h12=[]
+tamanho_h12=[]
+metro_linear_h12=[]
+area_h12=[]
+reload_h12=[]
+
 #função apenas pra mostras as vigas no listbox do tkinter
-def vigas_visual():
+def vigas_visual_h8():
     #calculo da quantidade de vigas, checkbox para retirar 1 viga da conta caso seja preciso
     quantidade_float=vigas_entry.get()
     quantidade_vg=quantidade_float.replace(',','.')
     quantidade_vg=float(quantidade_vg)
     if (varvg.get() == 1):
         q_vg=floor(quantidade_vg / 0.43)
-        quantidade.append(q_vg)#salva esse valor na lista 
+        quantidade_h8.append(q_vg)#salva esse valor na lista 
     else:
         q_vg=int(quantidade_vg / 0.43)+1
-        quantidade.append(q_vg)#salva esse valor na lista 
+        quantidade_h8.append(q_vg)#salva esse valor na lista 
 
     tamanho_float=tamanho_entry.get()
     tamanho_vg=tamanho_float.replace(',','.')
     tamanho_vg=float(tamanho_vg)
-    tamanho.append(tamanho_vg)#salva esse valor na lista 
+    tamanho_h8.append(tamanho_vg)#salva esse valor na lista 
     #calculo do metro linear de acordo com a quantidade de viga resultante da conta vezes o tamanho das vigas informado no entry
     ml=float(q_vg*tamanho_vg)
-    metro_linear.append(ml)#salva esse valor na lista 
+    metro_linear_h8.append(ml)#salva esse valor na lista 
 
     #obtenção dos valores dos reforços adicionados nos entrys
     reforco_cinco_vg=int(cinco_mm_entry.get())
@@ -58,14 +70,14 @@ def vigas_visual():
     zero=reforco_cinco_vg+reforco_seis_vg+reforco_oito_vg+reforco_dez_vg+reforco_doze_vg+reforco_dezesseis_vg
 
     if zero==0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} m ')
-        reload.append(f'{q_vg} VG = {tamanho_vg} m ')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} m ')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} m ')
         varvg.set(0)
 
     #se entry do reforço de 5mm for diferente de 0 executa esse if
     if reforco_cinco_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')#adiciona um item a listbox
-        reload.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')#adiciona um item a listbox
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')
         ml_cinco=(q_vg*tamanho_vg)*reforco_cinco_vg #faz a conta do metro linear do reforço(quantidade de barras adicionadas na entry vezes metro linear viga(quantidade X tamanho)
         reforco_cinco.append(ml_cinco) #adiciona esse metro linear de reforço na lista do reforço
         cinco_mm_entry.delete(0,END) #reseta entry para 0
@@ -76,8 +88,8 @@ def vigas_visual():
         
     
     if reforco_seis_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
-        reload.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
         ml_seis=(q_vg*tamanho_vg)*reforco_seis_vg
         reforco_seis.append(ml_seis)
         seis_mm_entry.delete(0,END)
@@ -88,8 +100,8 @@ def vigas_visual():
 
     
     if reforco_oito_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
-        reload.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
         ml_oito=(q_vg*tamanho_vg)*reforco_oito_vg
         reforco_oito.append(ml_oito)
         oito_mm_entry.delete(0,END)
@@ -100,8 +112,8 @@ def vigas_visual():
     
     
     if reforco_dez_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
-        reload.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
         ml_dez=(q_vg*tamanho_vg)*reforco_dez_vg
         reforco_dez.append(ml_dez)
         dez_mm_entry.delete(0,END)
@@ -112,8 +124,8 @@ def vigas_visual():
     
     
     if reforco_doze_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
-        reload.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
         ml_doze=(q_vg*tamanho_vg)*reforco_doze_vg
         reforco_doze.append(ml_doze)
         doze_mm_entry.delete(0,END)
@@ -124,8 +136,8 @@ def vigas_visual():
 
     
     if reforco_dezesseis_vg != 0:
-        lista_vigas.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
-        reload.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
+        lista_vigas_h8.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
+        reload_h8.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
         ml_dezesseis=(q_vg*tamanho_vg)*reforco_dezesseis_vg
         reforco_dezesseis.append(ml_dezesseis)
         dezesseis_mm_entry.delete(0,END)
@@ -134,12 +146,146 @@ def vigas_visual():
     else :
         reforco_dezesseis.append(0)
 
+#função apenas pra mostras as vigas no listbox do tkinter
+def vigas_visual_h12():
+
+    
+
+    #calculo da quantidade de vigas, checkbox para retirar 1 viga da conta caso seja preciso
+    quantidade_float=vigas_entry.get()
+    quantidade_vg=quantidade_float.replace(',','.')
+    quantidade_vg=float(quantidade_vg)
+    isopor=0
+    if vareps_trinta.get()==1:
+
+        isopor=0.43
+    elif vareps_quarenta.get()==1:
+        isopor=0.50
+
+
+    if (varvg.get() == 1):
+        q_vg=floor(quantidade_vg / isopor)
+        quantidade_h12.append(q_vg)#salva esse valor na lista 
+    else:
+        q_vg=int(quantidade_vg / isopor)+1
+        quantidade_h12.append(q_vg)#salva esse valor na lista 
+
+    tamanho_float=tamanho_entry.get()
+    tamanho_vg=tamanho_float.replace(',','.')
+    tamanho_vg=float(tamanho_vg)
+    tamanho_h12.append(tamanho_vg)#salva esse valor na lista 
+    #calculo do metro linear de acordo com a quantidade de viga resultante da conta vezes o tamanho das vigas informado no entry
+    ml=float(q_vg*tamanho_vg)
+    metro_linear_h12.append(ml)#salva esse valor na lista 
+    isopor=float(isopor)
+    calc_area_h12=ml * isopor
+    area_h12.append(calc_area_h12)
+    #obtenção dos valores dos reforços adicionados nos entrys
+    reforco_cinco_vg=int(cinco_mm_entry.get())
+    reforco_seis_vg=int(seis_mm_entry.get())
+    reforco_oito_vg=int(oito_mm_entry.get())
+    reforco_dez_vg=int(dez_mm_entry.get())
+    reforco_doze_vg=int(doze_mm_entry.get())
+    reforco_dezesseis_vg=int(dezesseis_mm_entry.get())
+
+    #soma de todos os reforços, se a soma for 0 nao precis adicionar nenhum reforço no listbox
+    zero=reforco_cinco_vg+reforco_seis_vg+reforco_oito_vg+reforco_dez_vg+reforco_doze_vg+reforco_dezesseis_vg
+
+    if zero==0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} m ')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} m ')
+        varvg.set(0)
+
+    #se entry do reforço de 5mm for diferente de 0 executa esse if
+    if reforco_cinco_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')#adiciona um item a listbox
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_cinco_vg:.0f}br 5mm')
+        ml_cinco=(q_vg*tamanho_vg)*reforco_cinco_vg #faz a conta do metro linear do reforço(quantidade de barras adicionadas na entry vezes metro linear viga(quantidade X tamanho)
+        reforco_cinco.append(ml_cinco) #adiciona esse metro linear de reforço na lista do reforço
+        cinco_mm_entry.delete(0,END) #reseta entry para 0
+        cinco_mm_entry.insert(0,'0') #reseta entry para 0
+        varvg.set(0) #desmarca o checkbox
+    else :
+        reforco_cinco.append(0)
+        
+    
+    if reforco_seis_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} m  {reforco_seis_vg:.0f}br 6mm')
+        ml_seis=(q_vg*tamanho_vg)*reforco_seis_vg
+        reforco_seis.append(ml_seis)
+        seis_mm_entry.delete(0,END)
+        seis_mm_entry.insert(0,'0')
+        varvg.set(0)
+    else :
+        reforco_seis.append(0)
+
+    
+    if reforco_oito_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_oito_vg:.0f}br 8mm')
+        ml_oito=(q_vg*tamanho_vg)*reforco_oito_vg
+        reforco_oito.append(ml_oito)
+        oito_mm_entry.delete(0,END)
+        oito_mm_entry.insert(0,'0')
+        varvg.set(0)
+    else :
+        reforco_oito.append(0)
+    
+    
+    if reforco_dez_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dez_vg:.0f}br 10mm')
+        ml_dez=(q_vg*tamanho_vg)*reforco_dez_vg
+        reforco_dez.append(ml_dez)
+        dez_mm_entry.delete(0,END)
+        dez_mm_entry.insert(0,'0')
+        varvg.set(0)
+    else :
+        reforco_dez.append(0)
+    
+    
+    if reforco_doze_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_doze_vg:.0f}br 12,5mm')
+        ml_doze=(q_vg*tamanho_vg)*reforco_doze_vg
+        reforco_doze.append(ml_doze)
+        doze_mm_entry.delete(0,END)
+        doze_mm_entry.insert(0,'0')
+        varvg.set(0)
+    else :
+        reforco_doze.append(0)
+
+    
+    if reforco_dezesseis_vg != 0:
+        lista_vigas_h12.insert('end',f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
+        reload_h12.append(f'{q_vg} VG = {tamanho_vg} metros {reforco_dezesseis_vg:.0f}br 16mm')
+        ml_dezesseis=(q_vg*tamanho_vg)*reforco_dezesseis_vg
+        reforco_dezesseis.append(ml_dezesseis)
+        dezesseis_mm_entry.delete(0,END)
+        dezesseis_mm_entry.insert(0,'0')
+        varvg.set(0)
+    else :
+        reforco_dezesseis.append(0)
+
+def dir_viga_visual():
+    if h8.get()==1:
+        vigas_visual_h8()
+    elif h12.get()==1:
+        vigas_visual_h12()
 
 def calcular():
-    ml_total=sum(metro_linear)
-    area=ml_total * 0.43
-    malha=int(area/5)
-    tavela=int(area*12)
+    
+    ml_total_h8=sum(metro_linear_h8)
+    area_h8=ml_total_h8 * 0.43
+    malha_h8=int(area_h8/5)
+    tavela_h8=int(area_h8*12)
+
+    ml_total_h12=sum(metro_linear_h12)
+    c_area_h12=sum(area_h12)
+    malha_h12=int(c_area_h12/5)
+    tavela_h12=int(c_area_h12*12)
+
     r_cinco=sum(reforco_cinco)
     r_seis=sum(reforco_seis)
     r_oito=sum(reforco_oito)
@@ -147,30 +293,62 @@ def calcular():
     r_doze=sum(reforco_doze)
     r_dezesseis=sum(reforco_dezesseis)
     
-    resultados.config(text=f'Metro quadrado total = {area:.2f}\nMetro linear total= {ml_total:.2f}\nQuantidade de EPS= {ml_total:.1f}\nQuantidade de TAVELA= {tavela}\nQuantidade de malhas: {malha:.0f}\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f} \
+    resultados_h8.config(text=f'H8(LT12) = {area_h8:.2f}m²\nMetro linear H8= {ml_total_h8:.2f}m\nQuantidade de EPS H8= {ml_total_h8:.1f}\nQuantidade de TAVELA H8= {tavela_h8}\nQuantidade de malhas H8: {malha_h8:.0f}\n\n------------\n\nH12(LT16) = {c_area_h12:.2f}m²\nMetro linear H12= {ml_total_h12:.2f}m\nQuantidade de EPS H12= {ml_total_h12:.1f}\nQuantidade de TAVELA H12= {tavela_h12}\nQuantidade de malhas H12: {malha_h12:.0f}\n\n------------------\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f} \
                     \n16mm= {r_dezesseis:.2f}')
+    
 
-
-def apagar_ultimo():
-    apagar=lista_vigas.curselection()
-    lista_vigas.delete(apagar[0])
-    quantidade.pop(apagar[0])
-    tamanho.pop(apagar[0])
-    metro_linear.pop(apagar[0])
+def apagar_ultimo_h8():
+    apagar=lista_vigas_h8.curselection()
+    lista_vigas_h8.delete(apagar[0])
+    quantidade_h8.pop(apagar[0])
+    tamanho_h8.pop(apagar[0])
+    metro_linear_h8.pop(apagar[0])
     reforco_cinco.pop(apagar[0])
     reforco_seis.pop(apagar[0])
     reforco_oito.pop(apagar[0])
     reforco_dez.pop(apagar[0])
     reforco_doze.pop(apagar[0])
     reforco_dezesseis.pop(apagar[0])
-    reload.pop(apagar[0])
+    reload_h8.pop(apagar[0])
 
+def apagar_ultimo_h12():
+    apagar_h12=lista_vigas_h12.curselection()
+    lista_vigas_h12.delete(apagar_h12[0])
+    quantidade_h12.pop(apagar_h12[0])
+    tamanho_h12.pop(apagar_h12[0])
+    metro_linear_h12.pop(apagar_h12[0])
+    reforco_cinco.pop(apagar_h12[0])
+    reforco_seis.pop(apagar_h12[0])
+    reforco_oito.pop(apagar_h12[0])
+    reforco_dez.pop(apagar_h12[0])
+    reforco_doze.pop(apagar_h12[0])
+    reforco_dezesseis.pop(apagar_h12[0])
+    reload_h12.pop(apagar_h12[0])
+    area_h12.pop(apagar_h12[0])
+
+def dir_apagar():
+    t_h8=lista_vigas_h8.curselection()
+    t_h12=lista_vigas_h12.curselection()
+    tuplah8=len(t_h8)
+    tuplah12=len(t_h12)
+    if tuplah8 == 1:
+        apagar_ultimo_h8()
+    if tuplah12 == 1:
+        apagar_ultimo_h12()
+  
+   
 
 def salvar():
-    ml_total=sum(metro_linear)
-    area=ml_total * 0.43
-    malha=int(area/5)
-    tavela=int(area*12)
+    ml_total_h8=sum(metro_linear_h8)
+    area_h8=ml_total_h8 * 0.43
+    malha_h8=int(area_h8/5)
+    tavela_h8=int(area_h8*12)
+
+    ml_total_h12=sum(metro_linear_h12)
+    c_area_h12=sum(area_h12)
+    malha_h12=int(c_area_h12/5)
+    tavela_h12=int(c_area_h12*12)
+
     r_cinco=sum(reforco_cinco)
     r_seis=sum(reforco_seis)
     r_oito=sum(reforco_oito)
@@ -178,40 +356,56 @@ def salvar():
     r_doze=sum(reforco_doze)
     r_dezesseis=sum(reforco_dezesseis)
     
-    resultados.config(text=f'Metro quadrado total = {area:.2f}\nMetro linear total= {ml_total:.2f}\nQuantidade de EPS= {ml_total:.1f}\nQuantidade de TAVELA= {tavela}\nQuantidade de malhas: {malha:.0f}\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f} \
+    resultados_h8.config(text=f'H8(LT12) = {area_h8:.2f}m²\nMetro linear H8= {ml_total_h8:.2f}m\nQuantidade de EPS H8= {ml_total_h8:.1f}\nQuantidade de TAVELA H8= {tavela_h8}\nQuantidade de malhas H8: {malha_h8:.0f}\n\n------------\n\nH12(LT16) = {c_area_h12:.2f}m²\nMetro linear H12= {ml_total_h12:.2f}m\nQuantidade de EPS H12= {ml_total_h12:.1f}\nQuantidade de TAVELA H12= {tavela_h12}\nQuantidade de malhas H12: {malha_h12:.0f}\n\n------------------\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f} \
                     \n16mm= {r_dezesseis:.2f}')
     
     with open(f'{nome_entry.get()}.txt','w') as salvar:
-        salvar.write(f'Cliente: {nome_entry.get()}\nCPF: {cpf_entry.get()}\nContato: {telefone_entry}\nEndereço: {endereco_entry}\nMetro quadrado total = {area:.2f}\nMetro linear total= {ml_total:.2f}\nQuantidade de EPS= {ml_total:.1f}\nQuantidade de TAVELA= {tavela}\nQuantidade de malhas: {malha:.0f}\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f} \
-                        \n16mm= {r_dezesseis:.2f}\n\nLISTA DE VIGAS:\n\n')
+        salvar.write(f'Cliente: {nome_entry.get()}\nCPF: {cpf_entry.get()}\nContato: {telefone_entry}\nEndereço: {endereco_entry}\nH8(LT12) = {area_h8:.2f}m²\nMetro linear H8= {ml_total_h8:.2f}m\nQuantidade de EPS H8= {ml_total_h8:.1f}\nQuantidade de TAVELA H8= {tavela_h8}\nQuantidade de malhas H8: {malha_h8:.0f}\n\n------------\n\nH12(LT16) = {c_area_h12:.2f}m²\nMetro linear H12= {ml_total_h12:.2f}m\nQuantidade de EPS H12= {ml_total_h12:.1f}\nQuantidade de TAVELA H12= {tavela_h12}\nQuantidade de malhas H12: {malha_h12:.0f}\n\n------------------\n\nReforços:\n5mm={r_cinco:.2f}\n6mm(1/4)= {r_seis:.2f}\n8mm(5/16)= {r_oito:.2f}\n10mm(3/8)= {r_dez:.2f}\n12,5mm(1/2)= {r_doze:.2f}\n16mm= {r_dezesseis:.2f}\n\nLISTA DE VIGAS:\n\n')
         
-        lv=lista_vigas.get(0,END)
-        lv_lista=list(lv)
+        lvh8=lista_vigas_h8.get(0,END)
+        lv_listah8=list(lvh8)
         
-        o=list(set(tamanho))
-        o.sort(reverse=True)
-        ordem=[]
-        for i in o:
-            for j in range(0,len(tamanho)):
-                if (tamanho[j] == i):
-                    ordem.append(lv_lista[j])
+        oh8=list(set(tamanho_h8))
+        oh8.sort(reverse=True)
+        ordemh8=[]
+        for i in oh8:
+            for j in range(0,len(tamanho_h8)):
+                if (tamanho_h8[j] == i):
+                    ordemh8.append(lv_listah8[j])
     
-        print(ordem)           
-    
-        for l in ordem:
+        print(ordemh8)           
+        salvar.write(f'\n H8 LT12 \n\n')
+        for l in ordemh8:
             
             salvar.write(f'{l}\n')
 
-    lista={'quantidade':quantidade,
-                'tamanho':tamanho,
-                'metro': metro_linear,
+        lvh12=lista_vigas_h12.get(0,END)
+        lv_listah12=list(lvh12)
+        
+        oh12=list(set(tamanho_h12))
+        oh12.sort(reverse=True)
+        ordemh12=[]
+        for ih12 in oh12:
+            for j in range(0,len(tamanho_h12)):
+                if (tamanho_h12[j] == ih12):
+                    ordemh12.append(lv_listah12[j])
+    
+        print(ordemh12)           
+        salvar.write(f'\n H12 LT16 \n\n')
+        for lh12 in ordemh12:
+            
+            salvar.write(f'{lh12}\n')
+
+    lista={'quantidade':quantidade_h8,
+                'tamanho':tamanho_h8,
+                'metro': metro_linear_h8,
                 '5mm' : reforco_cinco,
                 '6mm': reforco_seis,
                 '8mm': reforco_oito,
                 '10mm':reforco_dez,
                 '12,5mm' : reforco_doze,
                 '16mm': reforco_dezesseis,
-                'reload': reload
+                'reload': reload_h8
             }
     
     pd_lista=DataFrame.from_dict(lista,orient='index')
@@ -221,18 +415,18 @@ def salvar():
     pd_lista.to_excel(f'{nome_entry.get()}.xlsx')
 
 def recarregar():
-    quantidade.clear()
-    tamanho.clear()
-    metro_linear.clear()
+    quantidade_h8.clear()
+    tamanho_h8.clear()
+    metro_linear_h8.clear()
     reforco_cinco.clear()
     reforco_seis.clear()
     reforco_oito.clear()
     reforco_dez.clear()
     reforco_doze.clear()
     reforco_dezesseis.clear()
-    reload.clear()
+    reload_h8.clear()
 
-    lista_vigas.delete(0,END)
+    lista_vigas_h8.delete(0,END)
     path= easygui.fileopenbox()
     pandas=read_excel(f'{path}')
     pandas.fillna(0,inplace=True)
@@ -245,13 +439,13 @@ def recarregar():
 
     quantidadepd=pandas['quantidade'].values.tolist()
     for q in quantidadepd:
-        quantidade.append(q)
+        quantidade_h8.append(q)
     tamanhopd=pandas['tamanho'].values.tolist()
     for t in tamanhopd:
-        tamanho.append(t)
+        tamanho_h8.append(t)
     metro_linearpd=pandas['metro'].values.tolist()
     for ml in metro_linearpd:
-        metro_linear.append(ml)
+        metro_linear_h8.append(ml)
     reforco_cincopd=pandas['5mm'].values.tolist()
     for cinco in reforco_cincopd:
         reforco_cinco.append(cinco)
@@ -272,12 +466,12 @@ def recarregar():
         reforco_dezesseis.append(dezesseis)
     reloadpd=pandas['reload'].values.tolist()
     for rel in reloadpd:
-        reload.append(rel)
+        reload_h8.append(rel)
 
     reloads=pandas['reload'].values.tolist()
     
     for f in reloads:
-        lista_vigas.insert('end',f)
+        lista_vigas_h8.insert('end',f)
     
     
 
@@ -611,8 +805,25 @@ h25=IntVar()
 h25_cb= Checkbutton(state='normal',variable=h25,onvalue=1,offvalue=0,background='white',disabledforeground="gray",command=trelica)
 h25_cb.place(x=225,y=220)
 
+varvg=IntVar()
+menos_viga_cb=Checkbutton(text='menos 1 viga',variable=varvg,onvalue=1,offvalue=0,background='white')
+menos_viga_cb.place(x=25.0,y=380.0)
+
+lista_vigas_h8=Listbox(bg='lightgray',fg='black',highlightbackground='black',highlightthickness=2)
+lista_vigas_h8.place(x=309,y=158,width=570,height=152)
+barra_scroll=Scrollbar(lista_vigas_h8)
+barra_scroll.pack(side=RIGHT, fill=Y)
 
 
+
+
+lista_vigas_h12=Listbox(bg='lightgray',fg='black',highlightbackground='black',highlightthickness=2)
+lista_vigas_h12.place(x=309,y=319,width=570,height=152)
+barra_scroll=Scrollbar(lista_vigas_h12)
+barra_scroll.pack(side=RIGHT, fill=Y)
+
+resultados_h8=Label(text='',fg='black',justify=LEFT,font=('arial black', 8),highlightbackground='black',highlightthickness=2)
+resultados_h8.place(x=957,y=158,w=217,h=457)
 
 image_image_11 = PhotoImage(
     file=relative_to_assets("image_11.png"))
@@ -799,7 +1010,7 @@ image_image_21 = PhotoImage(
     file=relative_to_assets("image_21.png"))
 image_21 = canvas.create_image(
     71.0,
-    369.0,
+    352.0,
     image=image_image_21
 )
 
@@ -872,15 +1083,6 @@ canvas.create_text(
     392.0,
     anchor="nw",
     text="VIGAS",
-    fill="#000000",
-    font=("Inter Bold", 10 * -1)
-)
-
-canvas.create_text(
-    45.0,
-    397.0,
-    anchor="nw",
-    text="MENOS 1 VIGA",
     fill="#000000",
     font=("Inter Bold", 10 * -1)
 )
@@ -1157,6 +1359,8 @@ cinco_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+cinco_mm_entry.insert(0,'0')
+
 cinco_mm_entry.place(
     x=71.0,
     y=522.0,
@@ -1171,6 +1375,7 @@ seis_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+seis_mm_entry.insert(0,'0')
 seis_mm_entry.place(
     x=71.0,
     y=538.0,
@@ -1185,6 +1390,7 @@ oito_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+oito_mm_entry.insert(0,'0')
 oito_mm_entry.place(
     x=71.0,
     y=554.0,
@@ -1199,6 +1405,7 @@ dez_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+dez_mm_entry.insert(0,'0')
 dez_mm_entry.place(
     x=71.0,
     y=569.0,
@@ -1213,6 +1420,7 @@ doze_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+doze_mm_entry.insert(0,'0')
 doze_mm_entry.place(
     x=71.0,
     y=585.0,
@@ -1227,6 +1435,7 @@ dezesseis_mm_entry = Entry(
     fg="#000716",
     highlightthickness=0
 )
+dezesseis_mm_entry.insert(0,'0')
 dezesseis_mm_entry.place(
     x=71.0,
     y=600.0,
@@ -1240,7 +1449,7 @@ bt_adicionar = Button(
     image=bt_adicionar_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=vigas_visual,
+    command=dir_viga_visual,
     relief="flat"
 )
 bt_adicionar.place(
@@ -1256,7 +1465,7 @@ bt_apaga_u = Button(
     image=bt_apaga_u_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=apagar_ultimo,
+    command=dir_apagar,
     relief="flat"
 )
 bt_apaga_u.place(
@@ -1323,21 +1532,21 @@ image_32 = canvas.create_image(
 )
 
 canvas.create_text(
-    863.0,
+    880.0,
     162.0,
     anchor="nw",
-    text="H8",
+    text="  H8\nLT12",
     fill="#000000",
-    font=("Inter Bold", 24 * -1)
+    font=("Inter Bold", 15 * -1)
 )
 
 canvas.create_text(
-    860.0,
-    319.0,
+    880.0,
+    322.0,
     anchor="nw",
-    text="H12",
+    text=" H12\nLT16",
     fill="#000000",
-    font=("Inter Bold", 24 * -1)
+    font=("Inter Bold", 15 * -1)
 )
 
 canvas.create_text(
