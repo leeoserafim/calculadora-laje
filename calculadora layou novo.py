@@ -14,8 +14,8 @@ from pathlib import Path
 
 
  #listas com valores e entradas, todas as listas possuem a mesma quantidade de itens
-quantidade=[]
-tamanho=[]
+# quantidade=[]
+# tamanho=[]
 metro_linear=[]
 reforco_cinco=[]
 reforco_seis=[]
@@ -23,7 +23,7 @@ reforco_oito=[]
 reforco_dez=[]
 reforco_doze=[]
 reforco_dezesseis=[]
-reload=[]
+# reload=[]
 
 
 quantidade_h8=[]
@@ -46,10 +46,11 @@ def vigas_visual_h8():
     if (varvg.get() == 1):
         q_vg=floor(quantidade_vg / 0.43)
         quantidade_h8.append(q_vg)#salva esse valor na lista 
+        # quantidade.append(q_vg)
     else:
         q_vg=int(quantidade_vg / 0.43)+1
         quantidade_h8.append(q_vg)#salva esse valor na lista 
-
+        # quantidade.append(q_vg)
     tamanho_float=tamanho_entry.get()
     tamanho_vg=tamanho_float.replace(',','.')
     tamanho_vg=float(tamanho_vg)
@@ -166,9 +167,11 @@ def vigas_visual_h12():
     if (varvg.get() == 1):
         q_vg=floor(quantidade_vg / isopor)
         quantidade_h12.append(q_vg)#salva esse valor na lista 
+        # quantidade.append(q_vg)
     else:
         q_vg=int(quantidade_vg / isopor)+1
         quantidade_h12.append(q_vg)#salva esse valor na lista 
+        # quantidade.append(q_vg)
 
     tamanho_float=tamanho_entry.get()
     tamanho_vg=tamanho_float.replace(',','.')
@@ -301,6 +304,7 @@ def apagar_ultimo_h8():
     apagar=lista_vigas_h8.curselection()
     lista_vigas_h8.delete(apagar[0])
     quantidade_h8.pop(apagar[0])
+    quantidade.pop(apagar[0])
     tamanho_h8.pop(apagar[0])
     metro_linear_h8.pop(apagar[0])
     reforco_cinco.pop(apagar[0])
@@ -315,6 +319,7 @@ def apagar_ultimo_h12():
     apagar_h12=lista_vigas_h12.curselection()
     lista_vigas_h12.delete(apagar_h12[0])
     quantidade_h12.pop(apagar_h12[0])
+    quantidade.pop(apagar_h12[0])
     tamanho_h12.pop(apagar_h12[0])
     metro_linear_h12.pop(apagar_h12[0])
     reforco_cinco.pop(apagar_h12[0])
@@ -386,9 +391,9 @@ def salvar():
         oh12.sort(reverse=True)
         ordemh12=[]
         for ih12 in oh12:
-            for j in range(0,len(tamanho_h12)):
-                if (tamanho_h12[j] == ih12):
-                    ordemh12.append(lv_listah12[j])
+            for jh12 in range(0,len(tamanho_h12)):
+                if (tamanho_h12[jh12] == ih12):
+                    ordemh12.append(lv_listah12[jh12])
     
         print(ordemh12)           
         salvar.write(f'\n H12 LT16 \n\n')
@@ -396,25 +401,28 @@ def salvar():
             
             salvar.write(f'{lh12}\n')
 
-    lista={'quantidade':quantidade_h8,
-                'tamanho':tamanho_h8,
-                'metro': metro_linear_h8,
+    lista={'quantidadeh8':quantidade_h8,
+                'tamanhoh8':tamanho_h8,
+                'metroh8': metro_linear_h8,
                 '5mm' : reforco_cinco,
                 '6mm': reforco_seis,
                 '8mm': reforco_oito,
                 '10mm':reforco_dez,
                 '12,5mm' : reforco_doze,
                 '16mm': reforco_dezesseis,
-                'reload': reload_h8
+                'reloadh8': reload_h8,
+                'quantidadeh12':quantidade_h12,
+                'reloadh12': reload_h12,
+                'area_h12': area_h12,
             }
     
-    pd_lista=DataFrame.from_dict(lista,orient='index')
+    pd_lista=DataFrame.from_dict(lista,orient='index')  
     pd_lista.fillna(0,inplace=True)
     pd_lista=pd_lista.transpose()
-    
     pd_lista.to_excel(f'{nome_entry.get()}.xlsx')
 
 def recarregar():
+    # quantidade.clear()
     quantidade_h8.clear()
     tamanho_h8.clear()
     metro_linear_h8.clear()
@@ -426,7 +434,14 @@ def recarregar():
     reforco_dezesseis.clear()
     reload_h8.clear()
 
+    quantidade_h8.clear()
+    tamanho_h8.clear()
+    metro_linear_h8.clear()
+    reload_h8.clear()
+    area_h12.clear()
+
     lista_vigas_h8.delete(0,END)
+    lista_vigas_h12.delete(0,END)
     path= easygui.fileopenbox()
     pandas=read_excel(f'{path}')
     pandas.fillna(0,inplace=True)
@@ -437,15 +452,31 @@ def recarregar():
     nome_entry.delete(0,END) #reseta entry para 0
     nome_entry.insert(0,f'{nome}') #reseta entry para 0
 
-    quantidadepd=pandas['quantidade'].values.tolist()
-    for q in quantidadepd:
-        quantidade_h8.append(q)
-    tamanhopd=pandas['tamanho'].values.tolist()
-    for t in tamanhopd:
-        tamanho_h8.append(t)
-    metro_linearpd=pandas['metro'].values.tolist()
-    for ml in metro_linearpd:
-        metro_linear_h8.append(ml)
+    # quantidadepd=pandas['quantidade'].values.tolist()
+    # for q in quantidadepd:
+    #     quantidade.append(q)
+
+    quantidadepdh8=pandas['quantidadeh8'].values.tolist()
+    for qh8 in quantidadepdh8:
+        quantidade_h8.append(qh8)
+    quantidadepdh12=pandas['quantidadeh12'].values.tolist()
+    for qh12 in quantidadepdh12:
+        quantidade_h12.append(qh12)
+
+    tamanhopdh8=pandas['tamanhoh8'].values.tolist()
+    for th8 in tamanhopdh8:
+        tamanho_h8.append(th8)
+    tamanhopdh12=pandas['tamanhoh12'].values.tolist()
+    for th12 in tamanhopdh12:
+        tamanho_h12.append(th12)
+
+    metro_linearpdh8=pandas['metroh8'].values.tolist()
+    for mlh8 in metro_linearpdh8:
+        metro_linear_h8.append(mlh8)
+    # metro_linearpdh12=pandas['metroh12'].values.tolist()
+    # for mlh12 in metro_linearpdh12:
+    #     metro_linear_h12.append(mlh12)
+
     reforco_cincopd=pandas['5mm'].values.tolist()
     for cinco in reforco_cincopd:
         reforco_cinco.append(cinco)
@@ -464,15 +495,27 @@ def recarregar():
     reforco_dezesseispd=pandas['16mm'].values.tolist()
     for dezesseis in reforco_dezesseispd:
         reforco_dezesseis.append(dezesseis)
-    reloadpd=pandas['reload'].values.tolist()
-    for rel in reloadpd:
-        reload_h8.append(rel)
 
-    reloads=pandas['reload'].values.tolist()
+    reloadpdh8=pandas['reloadh8'].values.tolist()
+    for relh8 in reloadpdh8:
+        reload_h8.append(relh8)
+    reloadpdh12=pandas['reloadh12'].values.tolist()
+    for relh12 in reloadpdh12:
+        reload_h12.append(relh12)
+
+    areapdh12=pandas['area_h12'].values.tolist()
+    for areah12 in areapdh12:
+        area_h12.append(areah12)
+
+    reloadsh8=pandas['reloadh8'].values.tolist()
     
-    for f in reloads:
-        lista_vigas_h8.insert('end',f)
+    for fh8 in reloadsh8:
+        lista_vigas_h8.insert('end',fh8)
+
+    reloadsh12=pandas['reloadh12'].values.tolist()
     
+    for fh12 in reloadsh12:
+        lista_vigas_h12.insert('end',fh12)
     
 
 # #----------------------------------
@@ -656,7 +699,7 @@ def recarregar():
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\acolajes\Dropbox\My PC (LAJES003)\Downloads\build\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\leonardo.rmserafim\Desktop\calculadora-laje-main")
 
 
 
