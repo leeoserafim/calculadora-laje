@@ -11,6 +11,12 @@ from numpy import *
 from pathlib import Path
 
 
+#tentando arrumar excel pandas que esta salvando row a mais
+#tentando arrumar excel pandas que esta salvando row a mais
+#tentando arrumar excel pandas que esta salvando row a mais
+#tentando arrumar excel pandas que esta salvando row a mais
+#tentando arrumar excel pandas que esta salvando row a mais
+
 
 
  #listas com valores e entradas, todas as listas possuem a mesma quantidade de itens
