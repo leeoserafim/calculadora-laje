@@ -7,7 +7,7 @@
 ###
 
 <div align="center">
-  <img height="200" src="https://calclaje.jpg"  />
+  <img height="200" src="[https://calclaje.jpg](https://github.com/leeoserafim/calculadora-laje/blob/main/calclaje.jpg)"  />
 </div>
 
 ###
