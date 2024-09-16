@@ -3,10 +3,8 @@ from math import *
 from pandas import *
 from  xlsxwriter import *
 import easygui
-import openpyxl
 from pathlib import Path
 import os
-from numpy import *
 
 from pathlib import Path
 
