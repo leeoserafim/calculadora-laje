@@ -7,7 +7,7 @@
 ###
 
 <div align="center">
-  <img height="200" src="/calclaje.jpg"  />
+  <img height="500" src="/calclaje.jpg"  />
 </div>
 
 ###
