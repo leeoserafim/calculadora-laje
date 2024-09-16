@@ -15,7 +15,7 @@ from pathlib import Path
 #arruamr reload / limpar comentarios e linhas comentadas
 #arruamr reload / limpar comentarios e linhas comentadas
 #arruamr reload / limpar comentarios e linhas comentadas
-
+#arrumar insert quantidade de vigas
 
 
  #listas com valores e entradas, todas as listas possuem a mesma quantidade de itens
@@ -792,8 +792,8 @@ image_20 = canvas.create_image(
 )
 
 canvas.create_text(
-    179.0,
-    18.0,
+    450.0,
+    20.0,
     anchor="nw",
     text="CALCULADORA DE LAJE TRELIÇADA",
     fill="#000000",
@@ -928,7 +928,7 @@ canvas.create_text(
 )
 
 
-vigas_entry=Entry(
+vigas_entry=Entry(  #largura do comodo
     bd=0,
     bg="#D9D9D9",
     fg="#000716",
@@ -951,7 +951,7 @@ canvas.create_text(
 )
 
 
-vigas_quantidade_entry = Entry(
+vigas_quantidade_entry = Entry(  #quantidade de vigas
     bd=0,
     bg="#D9D9D9",
     fg="#000716",
@@ -1408,15 +1408,6 @@ bt_recarregar.place(
     width=171.463134765625,
     height=28.847259521484375
 )
-
-image_image_32 = PhotoImage(
-    file=relative_to_assets("image_32.png"))
-image_32 = canvas.create_image(
-    70.0,
-    69.0,
-    image=image_image_32
-)
-
 canvas.create_text(
     880.0,
     162.0,
